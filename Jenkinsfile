@@ -1,19 +1,30 @@
 pipeline {
-    agent { docker { image 'python:3.10.7-alpine' } }
+    agent {
+        kubernetes {
+            label "build-pod"
+            cloud "kubernetes"
+            yaml '''
+                apiVersion: v1
+                kind: Pod
+                metadata:
+                  namespace: devops-tools
+                  labels:
+                    job: bootvar-build-pod
+                spec:
+                  containers:
+                  - name: svs-python
+                    image: python:3.10.7-alpine
+                    tty: true
+                    command: ['cat']
+                '''
+        }
+    }
     stages {
-        stage('Build') {
+        stage("First") {
             steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                 sh 'python test/test_all.py'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                container("svs-python") {
+                    sh "python3 test/test_all.py"
+                }
             }
         }
     }
