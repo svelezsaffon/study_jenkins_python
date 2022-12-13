@@ -20,6 +20,13 @@ pipeline {
         }
     }
     stages {
+        stage("add dependencies"){
+            steps{
+                container("svs-python"){
+                    sh "apk add scons pkgconf gcc g++ libx11-dev libxcursor-dev libxinerama-dev libxi-dev libxrandr-dev mesa-dev libexecinfo-dev eudev-dev alsa-lib-dev pulseaudio-dev"
+                }
+            }
+        } 
         stage("First") {
             steps {
                 container("svs-python") {
