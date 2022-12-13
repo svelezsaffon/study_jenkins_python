@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                 python -m unittest discover -s test/
+                 python test/test_all.py
             }
         }
         stage('Deploy') {
