@@ -13,6 +13,7 @@ pipeline {
                 spec:
                   containers:
                   - name: svs-python
+                    image: python:3.10.7-alpine
                     tty: true
                     command: ['cat']
                 '''
