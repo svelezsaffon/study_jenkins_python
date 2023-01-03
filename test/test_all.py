@@ -17,7 +17,3 @@ class TestCalculator(unittest.TestCase):
         :return:
         """
         self.assertEqual(Calculator().add(4, 2), 6)
-
-
-if __name__ == '__main__':
-    unittest.main()
